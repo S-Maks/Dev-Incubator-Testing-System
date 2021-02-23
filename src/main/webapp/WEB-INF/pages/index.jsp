@@ -19,13 +19,6 @@
     </style>
 </head>
 <body>
-<h4>Content</h4>
-
-<form method="post" action="/pol">
-    <input type="submit" value="get">
-</form>
-
-<div>${value}</div>
-
+<h2>Hello, Explorer!</h2>
 </body>
 </html>
