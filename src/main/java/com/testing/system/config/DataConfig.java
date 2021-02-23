@@ -46,7 +46,8 @@ public class DataConfig {
         return dataSource;
     }
 
-    @Bean
+    /*в этом участке вылетает ошибка, от чего невозможно поставить приложение*/
+    /*@Bean
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
@@ -60,6 +61,6 @@ public class DataConfig {
         HibernateTransactionManager transactionManager = new HibernateTransactionManager();
         transactionManager.setSessionFactory(sessionFactory().getObject());
         return transactionManager;
-    }
+    }*/
 
 }
