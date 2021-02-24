@@ -7,11 +7,9 @@ import java.util.List;
 @Table(name = "Role")
 public class Role {
     @Id
-    @Column(name = "roleId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
 
-    @Column(name = "role")
     private String role;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
