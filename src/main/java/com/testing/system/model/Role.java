@@ -1,0 +1,16 @@
+package com.testing.system.model;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Role")
+public class Role {
+    @Id
+    @Column(name = "roleId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int roleId;
+
+    @Column(name = "role")
+    private String role;
+
+}
