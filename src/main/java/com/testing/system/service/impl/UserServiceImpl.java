@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User getById(int id) {
+    public User findById(int id) {
         return (User) userRepository.findById(User.class, id);
     }
 }
