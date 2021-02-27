@@ -13,5 +13,5 @@ public interface RoleService {
 
     void save(Role t);
 
-    Role getById(int id);
+    Role findById(int id);
 }
