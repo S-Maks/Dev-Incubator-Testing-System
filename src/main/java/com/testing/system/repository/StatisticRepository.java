@@ -1,9 +1,12 @@
 package com.testing.system.repository;
 
+import com.testing.system.model.Statistic;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-public class StatisticRepository implements DaoRepository<StatisticRepository>{
+@Repository
+public class StatisticRepository implements DaoRepository<Statistic>{
     private SessionFactory sessionFactory;
 
     @Autowired
