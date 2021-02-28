@@ -10,10 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+    @Autowired
+    private DataSource dataSource;
 
     private CustomSuccessHandler customSuccessHandler;
 
@@ -37,16 +40,28 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .cors()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/forgotPassword", "/signIn", "/signUp", "/css/**", "/fonts/**", "/img/**", "/scripts/**", "/webapp/**", "/WEB-INF/**")
+                .antMatchers("/","/login","/static", "/img/**", "/scripts/**")
                 .permitAll()
+                .antMatchers("/admin/**").access("hasRole('ADMIN')")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/login")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll();
+    }
+
+    @Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .passwordEncoder(passwordEncoder)
+                .usersByUsernameQuery("select login, password, true from user where login=?")
+                .authoritiesByUsernameQuery("select login,role\n" +
+                        "from user\n" +
+                        "inner join role on user.roleId = role.roleId\n" +
+                        "where login=?");
     }
 }
