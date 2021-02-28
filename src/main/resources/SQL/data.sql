@@ -5,10 +5,10 @@ VALUES (1, 'ADMIN'),
        (3, 'USER');
 
 INSERT INTO User(userId, firstName, lastName, login, password, roleId)
-VALUES (1, 'Admin', 'Admin', 'admin', 'admin', 1),
-       (2, 'Tutor', 'Tutor', 'tutor', 'tutor', 2),
-       (3, 'User', 'User', 'user', 'user', 3),
-       (4, 'Qwerty', 'Qwerty', 'qwerty', 'qwerty', 3);
+VALUES (1, 'Admin', 'Admin', 'admin', '$2a$10$E9mHdNeAq7C8NDFuoTRiBe1ERUrcpdpXuLrSj2FC63UrC.XIWSlLS', 1),
+       (2, 'Tutor', 'Tutor', 'tutor', '$2a$10$gPdlCe1Oj.xjSA7orVi48.gpRCK84Le//lO2m7QN.LWjJmDhCjCP.', 2),
+       (3, 'User', 'User', 'user', '$2a$10$WzR1SltFQ55LtKejjogDPuEHrKYmHXuzQ0BxBMDmaU/z0uD1p0Opu', 3),
+       (4, 'Qwerty', 'Qwerty', 'qwerty', '$2a$10$UNqt8nqrFHtYmCJ0EpVeAOl6HJELxmHZu742aap9vbyt3kkHMqbxe', 3);
 
 INSERT INTO Topic (topicId, description, name)
 VALUES (1, 'People', 'People'),
