@@ -22,12 +22,6 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping(value = "/admin")
-    public String adminPage(ModelMap model) {
-        model.addAttribute("user", getPrincipal());
-        return "admin/admin";
-    }
-
     private Object getPrincipal() {
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

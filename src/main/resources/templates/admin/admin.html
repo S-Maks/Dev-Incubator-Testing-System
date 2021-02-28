@@ -1,10 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
 </head>
 <body>
- Hello admin!
+<div class="home-admin">
+    <img th:src="human.png" class = "img-human"/>
+    <div class="list-menu-admin-home">
+        <ul class="home-list">
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/admin/createTest}"  class="home-list">Создать тест</a>
+                </li>
+            </div>
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/admin/createUser}" class="home-list">Создать пользователя</a>
+                </li>
+            </div>
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/admin/statistic}" class="home-list">Статистика</a>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
 </body>
 </html>
