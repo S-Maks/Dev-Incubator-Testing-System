@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="cp1251">
+    <meta charset="utf-8">
+    <!--<meta charset="cp1251">-->
     <title>login</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
@@ -9,14 +10,14 @@
 <div>
     <form th:action="@{/login}" method="post" class="center">
         <div data-validate="Username is required" >
-            <input required type="text" placeholder="Логин" id="username" name="username" class = "input-login color-text">
+            <input required type="text" placeholder="Р›РѕРіРёРЅ" id="username" name="username" class = "input-login color-text">
         </div>
         <div data-validate="Password is required">
-            <input required type="password" placeholder="Пароль" id="password" name="password"  class = "input-password color-text">
+            <input required type="password" placeholder="РџР°СЂРѕР»СЊ" id="password" name="password"  class = "input-password color-text">
         </div>
         <div>
             <button class = "bottom-login">
-                Войти
+                Р’РѕР№С‚Рё
             </button>
         </div>
     </form>
