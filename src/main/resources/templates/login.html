@@ -7,10 +7,15 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-<div>
+<div style="margin-top: 10em;">
+    <div th:if = "${param.error}" class = "incorrect" >
+        <h2>
+            Неправильный логин или пароль!
+        </h2>
+    </div>
     <form th:action="@{/login}" method="post" class="center">
         <div data-validate="Username is required" >
-            <input required type="text" placeholder="Логин" id="username" name="username" class = "input-login color-text">
+            <input required type="text" placeholder="Логин" id="username" name="username" class = "input-password color-text">
         </div>
         <div data-validate="Password is required">
             <input required type="password" placeholder="Пароль" id="password" name="password"  class = "input-password color-text">
