@@ -3,13 +3,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LIST of people</title>
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
-
-<div>
-    <h2 th:text="'Hello TEMPLATE, ' + ${name} + '!'" ></h2>
-    <a th:href="@{/login} ">Sign In</a>
+<div class = "main-page-navigation">
+    <div class = "text-center color-text">
+        <h2>Добро пожаловать в Dev Incubator Testing System</h2>
+    </div>
+    <h1>
+        <a href="/login" class = "main-buttom-navigation ">Войти</a>
+    </h1>
+</div>
+<div class = "img-human-main">
+    <img th:src="@{img/human.png}">
 </div>
 </body>
 </html>

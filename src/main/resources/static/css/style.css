@@ -3,6 +3,31 @@ form.center {
     margin-right: auto;
     width: 15em;
 }
+.text-center{
+    text-align: center;
+}
+.img-human-main{
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+}
+.main-page-navigation{
+    display: flex;
+    margin-left: 25%;
+}
+.main-buttom-navigation{
+    margin-left: 10em;
+    padding: 10px;
+    border-radius: 7px;
+    background-color: #2c40a6;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+}
+.main-buttom-navigation:hover{
+    background-color: #4f81bd;
+    transition: 0.2s;
+}
 
 .input-login {
     margin-top: 10em;
