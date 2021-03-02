@@ -6,13 +6,18 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
+<div class="exit-button">
+    <h1>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
 <div class="home-admin">
-    <img th:src="@{img/human.png}" class = "img-human"/>
+    <img th:src="@{img/human.png}" class="img-human"/>
     <div class="list-menu-admin-home">
         <ul class="home-list">
             <div>
                 <li class="item-list">
-                    <a th:href="@{/admin/createTest}"  class="home-list">Создать тест</a>
+                    <a th:href="@{/admin/createTest}" class="home-list">Создать тест</a>
                 </li>
             </div>
             <div>

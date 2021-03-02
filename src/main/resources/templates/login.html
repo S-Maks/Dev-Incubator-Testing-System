@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
-    <!--<meta charset="cp1251">-->
-    <title>login</title>
+    <title>Login</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -11,6 +10,11 @@
     <div th:if = "${param.error}" class = "incorrect" >
         <h2>
             Неправильный логин или пароль!
+        </h2>
+    </div>
+    <div th:if = "${param.logout}" class = "incorrect" >
+        <h2>
+            Вы вышли из системы!
         </h2>
     </div>
     <form th:action="@{/login}" method="post" class="center">
