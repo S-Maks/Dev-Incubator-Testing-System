@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="home-admin margin-top-5em">
+    <img th:src="@{/img/human.png}" class="img-human" />
+
+    <div class = "margin-left-100 ">
+        <form th:action="@{/admin/createUser}" method="post" class="center">
+            <select class="input-role color-text" required name="roleId" id="roleId">
+                <option selected value="3">USER</option>
+                <option value="2">TUTOR</option>
+                <option value="3">ADMIN</option>
+            </select>
+
+            <div>
+                <input
+                        required
+                        type="text"
+                        placeholder="Фамилия"
+                        id="lastName"
+                        name="lastName"
+                        class="input-password color-text"
+                />
+            </div>
+            <div>
+                <input
+                        required
+                        type="text"
+                        placeholder="Имя"
+                        id="firstName"
+                        name="firstName"
+                        class="input-password color-text"
+                />
+            </div>
+
+            <div>
+                <input
+                        required
+                        type="text"
+                        placeholder="Логин"
+                        id="login"
+                        name="login"
+                        class="input-password color-text"
+                />
+            </div>
+
+            <div>
+                <input
+                        required
+                        type="password"
+                        placeholder="Пароль"
+                        id="password"
+                        name="password"
+                        class="input-password color-text"
+                />
+            </div>
+            <div>
+                <button class="bottom-login">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

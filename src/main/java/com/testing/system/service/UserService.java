@@ -5,7 +5,7 @@ import com.testing.system.model.User;
 import java.util.List;
 
 public interface UserService {
-    void save(User t);
+    void save(User t, int roleId);
 
     void update(User t);
 

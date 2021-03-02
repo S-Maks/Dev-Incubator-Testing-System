@@ -4,8 +4,10 @@ import com.testing.system.model.Role;
 import com.testing.system.model.User;
 import com.testing.system.repository.RoleRepository;
 import com.testing.system.repository.UserRepository;
+import com.testing.system.service.RoleService;
 import com.testing.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,9 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private RoleService roleService;
 
     private UserRepository userRepository;
 
@@ -23,7 +28,10 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void save(User t) {
+    public void save(User t, int roleId) {
+        t.setRole(roleService.findById(roleId));
+        String hashPassword = new BCryptPasswordEncoder().encode(t.getPassword());
+        t.setPassword(hashPassword);
         userRepository.save(t);
     }
 
