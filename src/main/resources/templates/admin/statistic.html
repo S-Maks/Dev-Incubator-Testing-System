@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistic</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="home-admin margin-top-5em">
+    <img th:src="@{/img/human.png}" class = "img-human"/>
+    <div class="list-menu-admin-home">
+        <ul class="home-list">
+            <div>
+                <li class="item-list">
+                    <a href="/admin/statisticTest"  class="home-list">Статистика по тесту</a>
+                </li>
+            </div>
+            <div>
+                <li class="item-list">
+                    <a href="/admin/statisticQuestions" class="home-list">Статистика по вопросам</a>
+                </li>
+            </div>
+            <div>
+                <li class="item-list">
+                    <a href="/admin/statisticUsers" class="home-list">Статистика пользователей</a>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
