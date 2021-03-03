@@ -39,19 +39,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .cors()
                 .and()
-                .authorizeRequests()
-                .antMatchers("/", "/login", "/css/**", "/fonts/**", "/img/**", "/scripts/**","/static/**")
-                .permitAll()
-                .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .anyRequest()
-                .authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/", "/login", "/css/**", "/fonts/**", "/img/**", "/scripts/**","/static/**")
+                    .permitAll()
+                    .antMatchers("/admin/**").access("hasRole('ADMIN')")
+                    .anyRequest()
+                    .authenticated()
                 .and()
-                .formLogin()
-                .loginPage("/login")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                    .logout()
+                    .permitAll();
     }
 
     @Autowired

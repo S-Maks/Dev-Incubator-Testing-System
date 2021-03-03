@@ -1,8 +1,8 @@
 
 INSERT INTO Role(roleId, role)
-VALUES (1, 'ADMIN'),
-       (2, 'TUTOR'),
-       (3, 'USER');
+VALUES (1, 'ROLE_ADMIN'),
+       (2, 'ROLE_TUTOR'),
+       (3, 'ROLE_USER');
 
 INSERT INTO User(userId, firstName, lastName, login, password, roleId)
 VALUES (1, 'Admin', 'Admin', 'admin', '$2a$10$E9mHdNeAq7C8NDFuoTRiBe1ERUrcpdpXuLrSj2FC63UrC.XIWSlLS', 1),
