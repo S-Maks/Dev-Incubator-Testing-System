@@ -48,7 +48,7 @@ public class Topic {
         this.tests = tests;
     }
 
-    @Override
+   /* @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -69,5 +69,5 @@ public class Topic {
                 ", name='" + name + '\'' +
                 ", tests=" + tests +
                 '}';
-    }
+    }*/
 }

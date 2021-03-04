@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Вопрос</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+<div class="home-admin">
+    <img th:src="@{/img/human.png}" class="img-human"/>
+    <div class="list-menu-admin-home">
+        <form>
+            <input type="text"> <input type="hidden">
+            <input type="radio">
+            <br>
+            <input type="radio">
+            <br>
+            <input type="radio">
+            <input type="submit" class="main-buttom-navigation">
+        </form>
+    </div>
+</div>
+</body>
+</html>

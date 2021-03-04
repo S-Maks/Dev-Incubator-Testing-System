@@ -39,4 +39,5 @@ public class Literature {
     public void setQuestion(Question question) {
         this.question = question;
     }
+
 }

@@ -129,3 +129,25 @@ a.home-list{
 .margin-top-5em{
     margin-top: 5em;
 }
+.select {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 30px;
+    border-width: 1px;
+    border-color: #4e82be;
+    background-color: #ffffff;
+    color: #4e82be;
+    border-style: solid;
+    margin-bottom: 20px;
+}
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]:checked + label {
+    background: #7892c2;
+    color: white;
+    border-color: red;
+}

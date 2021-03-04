@@ -1,22 +1,27 @@
 package com.testing.system.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "test")
-public class Test {
+public class Test implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int testId;
     private String name;
     private String description;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "topicId")
     private Topic topic;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Question> questions;
 
@@ -60,7 +65,7 @@ public class Test {
         this.questions = questions;
     }
 
-    @Override
+  /*  @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -82,5 +87,5 @@ public class Test {
                 ", topic=" + topic +
                 ", questions=" + questions +
                 '}';
-    }
+    }*/
 }

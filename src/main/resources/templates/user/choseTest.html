@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ВЫБОР ТЕСТА</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+
+<div class="home-admin">
+    <img th:src="@{/img/human.png}" class="img-human"/>
+    <div class="list-menu-admin-home">
+        <form id="select_topic_test" th:action="@{/user/startTest}" th:method="GET">
+            <select class="select" id="topics" name="topics">
+                <option th:each="topic:${topics}" th:text="${topic.name}" th:value="${topic.topicId}">
+            </select>
+            <br>
+            <select class="select" id="tests" name="test" form="select_topic_test">
+                <option th:each="test:${tests}" th:text="${test.name}" th:value="${test.testId}">
+            </select>
+            <input type="submit" value="Пройти тестирование" class="main-buttom-navigation">
+        </form>
+    </div>
+</div>
+
+<script>
+    $().ready(function () {
+        $('#topics').change(function (event) {
+            $.ajax({
+                url: "/user/choseTest",
+                type: "GET",
+                dataType: "json",
+                data: {topic: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setTest(data)
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+    });
+    var setTest = function (data) {
+        $('#tests').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#tests').append(new Option(value.name, value.testId));
+        });
+    }
+
+</script>
+</body>
+</html>
