@@ -65,12 +65,12 @@ public class Test {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Test test = (Test) o;
-        return testId == test.testId && name.equals(test.name) && description.equals(test.description) && topic.equals(test.topic) && questions.equals(test.questions);
+        return testId == test.testId && name.equals(test.name) && description.equals(test.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(testId, name, description, topic, questions);
+        return Objects.hash(testId, name, description);
     }
 
     @Override
@@ -79,8 +79,6 @@ public class Test {
                 "testId=" + testId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", topic=" + topic +
-                ", questions=" + questions +
                 '}';
     }
 }

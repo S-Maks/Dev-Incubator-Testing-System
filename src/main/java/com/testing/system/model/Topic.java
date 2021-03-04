@@ -53,12 +53,12 @@ public class Topic {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Topic topic = (Topic) o;
-        return topicId == topic.topicId && description.equals(topic.description) && name.equals(topic.name) && tests.equals(topic.tests);
+        return topicId == topic.topicId && description.equals(topic.description) && name.equals(topic.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(topicId, description, name, tests);
+        return Objects.hash(topicId, description, name);
     }
 
     @Override
@@ -67,7 +67,6 @@ public class Topic {
                 "topicId=" + topicId +
                 ", description='" + description + '\'' +
                 ", name='" + name + '\'' +
-                ", tests=" + tests +
                 '}';
     }
 }
