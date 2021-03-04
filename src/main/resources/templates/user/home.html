@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>USER HOME</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+<div class="home-admin">
+    <img th:src="@{img/human.png}" class="img-human"/>
+    <div class="list-menu-admin-home">
+        <ul class="home-list">
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/user/choseTest}" class="home-list">Выбор темы и теста</a>
+                </li>
+            </div>
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/user/personalStatistics}" class="home-list">Личная статистика</a>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
