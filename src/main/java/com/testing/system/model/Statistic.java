@@ -15,6 +15,9 @@ public class Statistic {
 
     private boolean correct;
 
+    @ManyToOne
+    private Question question;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;

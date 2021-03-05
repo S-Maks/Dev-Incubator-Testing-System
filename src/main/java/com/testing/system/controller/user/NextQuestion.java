@@ -14,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -60,7 +61,7 @@ public class NextQuestion {
         model.addAttribute("isLast",isLast);
 
         Question byId = questionService.findById(Integer.valueOf(currentQu));
-        List<Answer> answerList = byId.getAnswerList();
+        Set<Answer> answerList = byId.getAnswerSet();
         model.addAttribute("question",byId);
         model.addAttribute("answerList",answerList);
         resp.addCookie(currentTestId);

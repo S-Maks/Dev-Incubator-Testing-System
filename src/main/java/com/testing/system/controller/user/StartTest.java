@@ -55,7 +55,7 @@ public class StartTest {
         resp.addCookie(currentQuestion);
 
         Question byId = questionService.findById(firstQuestionId);
-        List<Answer> answerList = byId.getAnswerList();
+        Set<Answer> answerList = byId.getAnswerSet();
         model.addAttribute("isLast",questions.size()==1?1:0);
         model.addAttribute("question",byId);
         model.addAttribute("answerList",answerList);
