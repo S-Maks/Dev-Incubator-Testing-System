@@ -142,12 +142,3 @@ a.home-list{
     border-style: solid;
     margin-bottom: 20px;
 }
-input[type="radio"] {
-    display: none;
-}
-
-input[type="radio"]:checked + label {
-    background: #7892c2;
-    color: white;
-    border-color: red;
-}

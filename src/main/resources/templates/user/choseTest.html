@@ -18,11 +18,11 @@
 <div class="home-admin">
     <img th:src="@{/img/human.png}" class="img-human"/>
     <div class="list-menu-admin-home">
+        <select class="select" id="topics" name="topic">
+            <option th:each="topic:${topics}" th:text="${topic.name}" th:value="${topic.topicId}">
+        </select>
+        <br>
         <form id="select_topic_test" th:action="@{/user/startTest}" th:method="GET">
-            <select class="select" id="topics" name="topics">
-                <option th:each="topic:${topics}" th:text="${topic.name}" th:value="${topic.topicId}">
-            </select>
-            <br>
             <select class="select" id="tests" name="test" form="select_topic_test">
                 <option th:each="test:${tests}" th:text="${test.name}" th:value="${test.testId}">
             </select>

@@ -1,6 +1,9 @@
 package com.testing.system.model;
 
+import org.hibernate.engine.profile.Fetch;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,9 +14,20 @@ public class Question {
     private int questionId;
     private String description;
 
+    public List<Answer> getAnswerList() {
+        return answerList;
+    }
+
+    public void setAnswerList(List<Answer> answerList) {
+        this.answerList = answerList;
+    }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "testId")
     private Test test;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "question")
+    private List<Answer> answerList;
 
     public int getQuestionId() {
         return questionId;

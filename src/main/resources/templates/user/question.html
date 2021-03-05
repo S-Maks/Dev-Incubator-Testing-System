@@ -15,15 +15,30 @@
 </div>
 <div class="home-admin">
     <img th:src="@{/img/human.png}" class="img-human"/>
-    <div class="list-menu-admin-home">
-        <form>
-            <input type="text"> <input type="hidden">
-            <input type="radio">
-            <br>
-            <input type="radio">
-            <br>
-            <input type="radio">
-            <input type="submit" class="main-buttom-navigation">
+    <div>
+        <form th:if="${isLast==0}" th:method="GET" th:action="@{/user/nextQuestion}">
+            <div class="text-center color-text" th:text="${question.description}"></div>
+            <div class="radio" th:each="answer:${answerList}">
+                <input type="radio" th:name="answer" th:id="${answer.answerId}" th:value="${answer.answerId}" th:text="${answer.description}">
+            </div>
+            <div>
+                <input type="submit" value="Следующий вопрос" class="main-buttom-navigation">
+
+            </div>
+        </form>
+
+
+        <form th:if="${isLast==1}" th:method="GET" th:action="@{/user/endTest}">
+            <div class="text-center color-text" th:text="${question.description}"></div>
+            <div class="radio" th:each="answer:${answerList}">
+                <input type="radio" th:name="answer" th:id="${answer.answerId}" th:value="${answer.answerId}" th:text="${answer.description}">
+            </div>
+            <div>
+
+                <input type="submit" value="Закончить тест" class="main-buttom-navigation">
+            </div>
+
+
         </form>
     </div>
 </div>
