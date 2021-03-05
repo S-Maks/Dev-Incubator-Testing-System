@@ -2,6 +2,7 @@ package com.testing.system.model;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "question")
@@ -14,6 +15,15 @@ public class Question {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "testId")
     private Test test;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Statistic> statisticSet;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Answer> answerSet;
+
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Literature> literatureSet;
 
     public int getQuestionId() {
         return questionId;
@@ -37,6 +47,30 @@ public class Question {
 
     public void setTest(Test test) {
         this.test = test;
+    }
+
+    public Set<Statistic> getStatisticSet() {
+        return statisticSet;
+    }
+
+    public void setStatisticSet(Set<Statistic> statisticSet) {
+        this.statisticSet = statisticSet;
+    }
+
+    public Set<Answer> getAnswerSet() {
+        return answerSet;
+    }
+
+    public void setAnswerSet(Set<Answer> answerSet) {
+        this.answerSet = answerSet;
+    }
+
+    public Set<Literature> getLiteratureSet() {
+        return literatureSet;
+    }
+
+    public void setLiteratureSet(Set<Literature> literatureSet) {
+        this.literatureSet = literatureSet;
     }
 
     @Override
