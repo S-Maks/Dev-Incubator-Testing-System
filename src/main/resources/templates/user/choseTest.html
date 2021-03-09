@@ -31,11 +31,11 @@
     </div>
 </div>
 
-<script>
+<script th:inline="javascript">
     $().ready(function () {
         $('#topics').change(function (event) {
             $.ajax({
-                url: "/user/choseTest",
+                url: [(@{"/user/choseTest"})],
                 type: "GET",
                 dataType: "json",
                 data: {topic: $(event.target).val()}

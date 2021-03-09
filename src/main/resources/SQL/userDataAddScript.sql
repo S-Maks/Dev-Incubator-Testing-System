@@ -44,5 +44,36 @@ VALUES ('50 000', false, 4),
        ('Единицы миллионов', false, 9),
        ('Сотни тысяч', false, 9);
 
+INSERT INTO literature(literatureId, description, questionId)
+VALUES (4, '4 Натураьные числа', 4),
+       (5, '5 Число Е', 5),
+       (6, '6 Таблица простых чисел', 6),
+       (7, '7 Признаки делимости на 2', 7),
+       (8, '8 Признаки делимости на 3', 8),
+       (9, '9 Признаки делимости на 4', 9),
+
+       (10, '4 Сложение в столбик', 4),
+       (11, '5 Признаки делимости на 6', 5),
+       (12, '6 Признаки делимости на 9', 6),
+       (13, '7 Виды дробей', 7),
+       (14, '8 Согкращение дроби', 8),
+       (15, '9 Умножение дробей', 9);
+
+INSERT INTO link(link, literatureId)
+VALUES ('https://ru.onlinemschool.com/math/library/numbers/integers/', 4),
+       ('https://ru.onlinemschool.com/math/library/numbers/e/', 5),
+       ('https://ru.onlinemschool.com/math/library/numbers/prime-number/', 6),
+       ('https://ru.onlinemschool.com/math/library/divisibility_rule/#h1', 7),
+       ('https://ru.onlinemschool.com/math/library/divisibility_rule/#h2', 8),
+       ('https://ru.onlinemschool.com/math/library/divisibility_rule/#h3', 9),
+
+       ('https://ru.onlinemschool.com/math/library/numbers/column-addition/', 10),
+       ('https://ru.onlinemschool.com/math/library/divisibility_rule/#h5', 11),
+       ('https://ru.onlinemschool.com/math/library/divisibility_rule/#h6', 12),
+       ('https://ru.onlinemschool.com/math/library/fraction/fractions_forms/', 13),
+       ('https://ru.onlinemschool.com/math/library/fraction/simplify/', 14),
+       ('https://ru.onlinemschool.com/math/library/fraction/multiplication/', 15);
+
+
 
 

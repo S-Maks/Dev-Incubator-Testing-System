@@ -10,7 +10,11 @@ public class Literature {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int literatureId;
+
     String description;
+
+    @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "literature")
+    private Link link;
 
     @ManyToOne
     @JoinColumn(name = "questionId")
@@ -38,6 +42,14 @@ public class Literature {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    public Link getLink() {
+        return link;
+    }
+
+    public void setLink(Link link) {
+        this.link = link;
     }
 
 }

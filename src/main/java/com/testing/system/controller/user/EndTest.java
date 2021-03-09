@@ -61,6 +61,7 @@ public class EndTest {
             answerMap.put(questionService.findById(Integer.valueOf(strings[0])),answerService.findById(Integer.valueOf(strings[1])).isCorrect());
         }
 
+        model.addAttribute("answersMap",answerMap);
         int i=0;
 
         return "user/testStat";

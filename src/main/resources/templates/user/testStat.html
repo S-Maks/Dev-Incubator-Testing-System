@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TEST STAT</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+<div>
+    <table class="table_big">
+        <tr>
+            <th>Вопрос</th>
+            <th>Правильно</th>
+            <th>Рекомендуемая литература</th>
+            <th>Ссылки на рекомендуемую литературу</th>
+        </tr>
+        <tr th:each="question:${answersMap}">
+            <td th:text="${question.key.description}"/>
+            <td th:if="${question.value == true}" th:text="ДА"/>
+            <td th:if="${question.value == false}" th:text="НЕТ"/>
+            <td>
+                <table class="table table-borderless">
+                    <tr th:each="literature:${question.key.literatureSet}" th:with="link=${literature.link}">
+                        <td th:text="${literature.description}"></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr th:each="literature:${question.key.literatureSet}" th:with="link=${literature.link}">
+                        <td th:text="${link.link}"></td>
+                    </tr>
+                </table>
+            </td>
+
+        </tr>
+    </table>
+    <br>
+
+</div>
+</body>
+</html>
