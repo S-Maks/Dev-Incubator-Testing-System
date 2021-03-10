@@ -3,6 +3,7 @@ package com.testing.system.controller.user;
 import com.testing.system.model.Answer;
 import com.testing.system.model.Question;
 import com.testing.system.model.Test;
+import com.testing.system.service.CookieService;
 import com.testing.system.service.QuestionService;
 import com.testing.system.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Controller
@@ -27,33 +30,30 @@ public class StartTest {
     final
     TestService testService;
 
-    public StartTest(QuestionService questionService, TestService testService) {
+    final
+    CookieService cookieService;
+
+    public StartTest(QuestionService questionService, TestService testService, CookieService cookieService) {
         this.questionService = questionService;
         this.testService = testService;
+        this.cookieService = cookieService;
     }
 
     @GetMapping(value = "/startTest")
-    public String startTest(Model model, HttpServletRequest req, HttpServletResponse resp, @ModelAttribute("test") Integer testId){
-        Cookie currentTestId = new Cookie("testId",req.getRequestURL().toString());
-        currentTestId.setValue(testId.toString());
-        Cookie answers = new Cookie("answers","");
-        Cookie questionIdList = new Cookie("questionList", "");
-        Cookie currentQuestion = new Cookie("currentQuestion", "");
+    public String startTest(Model model, HttpServletResponse resp, @ModelAttribute("test") Integer testId){
+        Map<String,String> cookieMap=new LinkedHashMap<>();
+        cookieMap.put("testId",testId.toString());
+        cookieMap.put("answers","");
         Test test = testService.findById(testId);
         Set<Question> questions = test.getQuestions();
         StringBuilder questionIdListString=new StringBuilder();
         for (Question question : questions) {
             questionIdListString.append(question.getQuestionId()).append("=");
         }
-        questionIdList.setValue(questionIdListString.toString());
-
+        cookieMap.put("questionList",questionIdListString.toString());
         int firstQuestionId = questions.iterator().next().getQuestionId();
-        currentQuestion.setValue(String.valueOf(firstQuestionId));
-        resp.addCookie(currentTestId);
-        resp.addCookie(answers);
-        resp.addCookie(questionIdList);
-        resp.addCookie(currentQuestion);
-
+        cookieMap.put("currentQuestion", String.valueOf(firstQuestionId));
+        cookieService.setResponseCookie(resp,cookieMap);
         Question byId = questionService.findById(firstQuestionId);
         Set<Answer> answerList = byId.getAnswerSet();
         model.addAttribute("isLast",questions.size()==1?1:0);
