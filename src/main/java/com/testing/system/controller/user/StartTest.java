@@ -55,10 +55,8 @@ public class StartTest {
         cookieMap.put("currentQuestion", String.valueOf(firstQuestionId));
         cookieService.setResponseCookie(resp,cookieMap);
         Question byId = questionService.findById(firstQuestionId);
-        Set<Answer> answerList = byId.getAnswerSet();
         model.addAttribute("isLast",questions.size()==1?1:0);
         model.addAttribute("question",byId);
-        model.addAttribute("answerList",answerList);
         return "user/question";
     }
 

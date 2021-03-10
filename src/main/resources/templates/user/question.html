@@ -16,29 +16,14 @@
 <div class="home-admin">
     <img th:src="@{/img/human.png}" class="img-human"/>
     <div>
-        <form th:if="${isLast==0}" th:method="GET" th:action="@{/user/nextQuestion}">
+        <form th:method="GET" th:action="@{{url} (url=${isLast==0} ? '/user/nextQuestion' : '/user/endTest')}">
             <div class="text-center color-text" th:text="${question.description}"></div>
-            <div class="radio" th:each="answer:${answerList}">
+            <div class="radio" th:each="answer:${question.answerSet}">
                 <input type="radio" th:name="answer" th:id="${answer.answerId}" th:value="${answer.answerId}" th:text="${answer.description}">
             </div>
             <div>
-                <input type="submit" value="Следующий вопрос" class="main-buttom-navigation">
-
+                <input type="submit" th:value="${isLast!=1} ? 'Следующий вопрос' : 'Закончить тест'" class="main-buttom-navigation">
             </div>
-        </form>
-
-
-        <form th:if="${isLast==1}" th:method="GET" th:action="@{/user/endTest}">
-            <div class="text-center color-text" th:text="${question.description}"></div>
-            <div class="radio" th:each="answer:${answerList}">
-                <input type="radio" th:name="answer" th:id="${answer.answerId}" th:value="${answer.answerId}" th:text="${answer.description}">
-            </div>
-            <div>
-
-                <input type="submit" value="Закончить тест" class="main-buttom-navigation">
-            </div>
-
-
         </form>
     </div>
 </div>

@@ -47,16 +47,12 @@ public class NextQuestion {
             if (questionIds[i].equals(currentQu)){
                 currentQu=questionIds[i+1];
                 cookieMap.put("currentQuestion",currentQu);
-                //currentQuestion.setValue(currentQu);
                 break;
             }
         }
-        model.addAttribute("isLast",isLast);
-
         Question byId = questionService.findById(Integer.valueOf(currentQu));
-        Set<Answer> answerList = byId.getAnswerSet();
+        model.addAttribute("isLast",isLast);
         model.addAttribute("question",byId);
-        model.addAttribute("answerList",answerList);
         cookieService.setResponseCookie(resp, cookieMap);
         return "user/question";
     }
