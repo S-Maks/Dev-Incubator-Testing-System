@@ -1,9 +1,7 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
-import com.testing.system.model.Role;
 import com.testing.system.model.User;
-import com.testing.system.repository.RoleRepository;
-import com.testing.system.repository.UserRepository;
+import com.testing.system.repository.JPA.UserRepository;
 import com.testing.system.service.RoleService;
 import com.testing.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +33,11 @@ public class UserServiceImpl implements UserService {
         userRepository.save(t);
     }
 
-    @Transactional
+    /*@Transactional
     @Override
     public void update(User t) {
         userRepository.update(t);
-    }
+    }*/
 
     @Transactional
     @Override
@@ -50,12 +48,12 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public List<User> findAll() {
-        return userRepository.findAll(User.class);
+        return userRepository.findAll();
     }
 
     @Transactional
     @Override
     public User findById(int id) {
-        return (User) userRepository.findById(User.class, id);
+        return (User) userRepository.findById(id);
     }
 }

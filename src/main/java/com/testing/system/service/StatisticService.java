@@ -7,7 +7,7 @@ import java.util.List;
 public interface StatisticService {
     void save(Statistic t);
 
-    void update(Statistic t);
+    //void update(Statistic t);
 
     void delete(Statistic t);
 

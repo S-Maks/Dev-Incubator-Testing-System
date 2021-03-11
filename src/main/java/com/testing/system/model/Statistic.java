@@ -15,7 +15,10 @@ public class Statistic {
 
     private boolean correct;
 
+
+
     @ManyToOne
+    @JoinColumn(name= "questionId")
     private Question question;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -55,5 +58,12 @@ public class Statistic {
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 }

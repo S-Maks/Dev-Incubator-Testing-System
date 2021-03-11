@@ -1,13 +1,14 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
 import com.testing.system.model.Link;
-import com.testing.system.repository.LinkRepository;
+import com.testing.system.repository.JPA.LinkRepository;
 import com.testing.system.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 @Service
 public class LinkServiceImpl implements LinkService {
 
@@ -25,11 +26,11 @@ public class LinkServiceImpl implements LinkService {
         linkRepository.save(t);
     }
 
-    @Transactional
+   /* @Transactional
     @Override
     public void update(Link t) {
         linkRepository.update(t);
-    }
+    }*/
 
     @Override
     public void delete(Link t) {
@@ -39,12 +40,12 @@ public class LinkServiceImpl implements LinkService {
     @Transactional
     @Override
     public List<Link> findAll() {
-        return linkRepository.findAll(Link.class);
+        return linkRepository.findAll();
     }
 
     @Transactional
     @Override
     public Link findById(int id) {
-        return (Link) linkRepository.findById(Link.class,id);
+        return (Link) linkRepository.findById(id).get();
     }
 }

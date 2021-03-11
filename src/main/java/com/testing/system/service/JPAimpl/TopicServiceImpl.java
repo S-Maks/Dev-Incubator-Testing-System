@@ -1,7 +1,7 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
 import com.testing.system.model.Topic;
-import com.testing.system.repository.TopicRepository;
+import com.testing.system.repository.JPA.TopicRepository;
 import com.testing.system.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,11 @@ public class TopicServiceImpl implements TopicService {
         topicRepository.save(t);
     }
 
-    @Transactional
+    /*@Transactional
     @Override
     public void update(Topic t) {
         topicRepository.update(t);
-    }
+    }*/
 
     @Transactional
     @Override
@@ -40,12 +40,12 @@ public class TopicServiceImpl implements TopicService {
     @Transactional
     @Override
     public List<Topic> findAll() {
-        return topicRepository.findAll(Topic.class);
+        return topicRepository.findAll();
     }
 
     @Transactional
     @Override
     public Topic findById(int id) {
-        return (Topic) topicRepository.findById(Topic.class, id);
+        return (Topic) topicRepository.findById(id);
     }
 }

@@ -2,8 +2,11 @@ package com.testing.system.controller.user;
 
 import com.testing.system.model.Answer;
 import com.testing.system.model.Question;
+import com.testing.system.model.User;
+import com.testing.system.repository.JPA.UserRepository;
 import com.testing.system.service.CookieService;
 import com.testing.system.service.QuestionService;
+import com.testing.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,6 +59,17 @@ public class NextQuestion {
         cookieService.setResponseCookie(resp, cookieMap);
         return "user/question";
     }
+
+    @Autowired
+    UserRepository userRepository;
+
+    @GetMapping("/saveStat")
+    public String saveStat() {
+        User user = userRepository.findByLogin("user");
+
+        return "user/question";
+    }
+
 
 
 }

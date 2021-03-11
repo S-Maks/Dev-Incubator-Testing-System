@@ -1,7 +1,7 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
 import com.testing.system.model.Question;
-import com.testing.system.repository.QuestionRepository;
+import com.testing.system.repository.JPA.QuestionRepository;
 import com.testing.system.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,11 @@ public class QuestionServiceImpl implements QuestionService {
         questionRepository.save(t);
     }
 
-    @Transactional
+  /*  @Transactional
     @Override
     public void update(Question t) {
         questionRepository.update(t);
-    }
+    }*/
 
     @Transactional
     @Override
@@ -40,12 +40,12 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     @Override
     public List<Question> findAll() {
-        return questionRepository.findAll(Question.class);
+        return questionRepository.findAll();
     }
 
     @Transactional
     @Override
     public Question findById(int id) {
-        return (Question) questionRepository.findById(Question.class, id);
+        return (Question) questionRepository.findById(id);
     }
 }

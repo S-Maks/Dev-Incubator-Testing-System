@@ -1,7 +1,7 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
 import com.testing.system.model.Answer;
-import com.testing.system.repository.AnswerRepository;
+import com.testing.system.repository.JPA.AnswerRepository;
 import com.testing.system.service.AnswerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,12 @@ public class AnswerServiceImpl implements AnswerService {
 
 
 
-    @Transactional
+    /*@Transactional
     @Override
     public void update(Answer answer) {
         answerRepository.update(answer);
 
-    }
+    }*/
 
     @Transactional
     @Override
@@ -43,12 +43,12 @@ public class AnswerServiceImpl implements AnswerService {
     @Transactional
     @Override
     public List<Answer> findAll() {
-        return answerRepository.findAll(Answer.class);
+        return answerRepository.findAll();
     }
 
     @Transactional
     @Override
     public Answer findById(int id) {
-        return (Answer) answerRepository.findById(Answer.class,id);
+        return answerRepository.findById(id).get();
     }
 }

@@ -1,7 +1,7 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
 import com.testing.system.model.Role;
-import com.testing.system.repository.RoleRepository;
+import com.testing.system.repository.JPA.RoleRepository;
 import com.testing.system.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +21,14 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     @Override
     public List<Role> findAll() {
-        return roleRepository.findAll(Role.class);
+        return roleRepository.findAll();
     }
 
-    @Transactional
+    /*@Transactional
     @Override
     public void update(Role t) {
         roleRepository.update(t);
-    }
+    }*/
 
     @Transactional
     @Override
@@ -45,6 +45,6 @@ public class RoleServiceImpl implements RoleService {
     @Transactional
     @Override
     public Role findById(int id) {
-        return (Role) roleRepository.findById(Role.class,id);
+        return (Role) roleRepository.findById(id);
     }
 }

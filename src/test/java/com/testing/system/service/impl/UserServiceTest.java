@@ -1,6 +1,6 @@
 package com.testing.system.service.impl;
 
-import com.testing.system.config.DataConfig;
+import com.testing.system.config.DataConfigJPA;
 import com.testing.system.config.WebConfig;
 import com.testing.system.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 
 @ComponentScan(basePackages = "com.testing.system")
-@ContextConfiguration(classes = {WebConfig.class, DataConfig.class})
+@ContextConfiguration(classes = {WebConfig.class, DataConfigJPA.class})
 @WebAppConfiguration
 @PropertySource("classpath:db.properties")
 @PropertySource("classpath:hibernate.properties")

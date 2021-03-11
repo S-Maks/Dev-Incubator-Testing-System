@@ -7,7 +7,7 @@ import java.util.List;
 public interface TopicService {
     void save(Topic t);
 
-    void update(Topic t);
+    //void update(Topic t);
 
     void delete(Topic t);
 

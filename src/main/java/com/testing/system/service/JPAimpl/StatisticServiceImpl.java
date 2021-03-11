@@ -1,8 +1,7 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
 import com.testing.system.model.Statistic;
-import com.testing.system.repository.RoleRepository;
-import com.testing.system.repository.StatisticRepository;
+import com.testing.system.repository.JPA.StatisticRepository;
 import com.testing.system.service.StatisticService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +23,10 @@ public class StatisticServiceImpl implements StatisticService {
         statisticRepository.save(t);
     }
 
-    @Override
+  /*  @Override
     public void update(Statistic t) {
         statisticRepository.update(t);
-    }
+    }*/
 
     @Override
     public void delete(Statistic t) {
@@ -36,11 +35,11 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<Statistic> findAll() {
-        return statisticRepository.findAll(Statistic.class);
+        return statisticRepository.findAll();
     }
 
     @Override
     public Statistic findById(int id) {
-        return statisticRepository.findById(Statistic.class, id);
+        return statisticRepository.findById(id);
     }
 }

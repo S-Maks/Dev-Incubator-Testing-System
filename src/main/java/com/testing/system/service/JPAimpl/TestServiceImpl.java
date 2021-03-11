@@ -1,7 +1,7 @@
-package com.testing.system.service.impl;
+package com.testing.system.service.JPAimpl;
 
 import com.testing.system.model.Test;
-import com.testing.system.repository.TestRepository;
+import com.testing.system.repository.JPA.TestRepository;
 import com.testing.system.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,11 @@ public class TestServiceImpl implements TestService {
         testRepository.save(t);
     }
 
-    @Transactional
+    /*@Transactional
     @Override
     public void update(Test t) {
         testRepository.update(t);
-    }
+    }*/
 
     @Transactional
     @Override
@@ -40,12 +40,12 @@ public class TestServiceImpl implements TestService {
     @Transactional
     @Override
     public List<Test> findAll() {
-        return testRepository.findAll(Test.class);
+        return testRepository.findAll();
     }
 
     @Transactional
     @Override
     public Test findById(int id) {
-        return (Test) testRepository.findById(Test.class, id);
+        return (Test) testRepository.findById(id);
     }
 }
