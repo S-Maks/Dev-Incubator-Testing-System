@@ -32,27 +32,27 @@ public class NextQuestion {
     }
 
     @GetMapping("/nextQuestion")
-    public String nextQuestion(Model model, HttpServletRequest req, HttpServletResponse resp, @ModelAttribute("answer") Integer answerId){
-        int isLast=0;
+    public String nextQuestion(Model model, HttpServletRequest req, HttpServletResponse resp, @ModelAttribute("answer") Integer answerId) {
+        int isLast = 0;
         Map<String, String> cookieMap = cookieService.getCookieMap(req);
         String[] questionIds = cookieMap.get("questionList").split("=");
         String currentQu = cookieMap.get("currentQuestion");
         StringBuilder answersBuilder = new StringBuilder(cookieMap.get("answers"));
         answersBuilder.append(currentQu).append("-").append(answerId).append("=");
-        cookieMap.put("answers",answersBuilder.toString());
+        cookieMap.put("answers", answersBuilder.toString());
         for (int i = 0; i < questionIds.length; i++) {
-            if (i==questionIds.length-2){
-                isLast=1;
+            if (i == questionIds.length - 2) {
+                isLast = 1;
             }
-            if (questionIds[i].equals(currentQu)){
-                currentQu=questionIds[i+1];
-                cookieMap.put("currentQuestion",currentQu);
+            if (questionIds[i].equals(currentQu)) {
+                currentQu = questionIds[i + 1];
+                cookieMap.put("currentQuestion", currentQu);
                 break;
             }
         }
         Question byId = questionService.findById(Integer.valueOf(currentQu));
-        model.addAttribute("isLast",isLast);
-        model.addAttribute("question",byId);
+        model.addAttribute("isLast", isLast);
+        model.addAttribute("question", byId);
         cookieService.setResponseCookie(resp, cookieMap);
         return "user/question";
     }

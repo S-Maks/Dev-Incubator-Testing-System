@@ -2,6 +2,7 @@ package com.testing.system.model;
 
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name="literature")
@@ -52,4 +53,18 @@ public class Literature {
         this.link = link;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Literature that = (Literature) o;
+        return literatureId == that.literatureId &&
+                description.equals(that.description) &&
+                Objects.equals(link, that.link);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(literatureId, description, link);
+    }
 }
