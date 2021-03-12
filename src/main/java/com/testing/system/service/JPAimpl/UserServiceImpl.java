@@ -33,11 +33,18 @@ public class UserServiceImpl implements UserService {
         userRepository.save(t);
     }
 
+    @Transactional
+    @Override
+    public User findByLogin(String login) {
+        return userRepository.findByLogin(login);
+    }
+
     /*@Transactional
     @Override
     public void update(User t) {
         userRepository.update(t);
     }*/
+
 
     @Transactional
     @Override
@@ -56,4 +63,5 @@ public class UserServiceImpl implements UserService {
     public User findById(int id) {
         return (User) userRepository.findById(id);
     }
+
 }

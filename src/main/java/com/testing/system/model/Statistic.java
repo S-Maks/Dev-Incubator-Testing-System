@@ -1,7 +1,7 @@
 package com.testing.system.model;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 @Entity
 @Table(name = "statistic")
@@ -11,6 +11,7 @@ public class Statistic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int statisticId;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     private boolean correct;

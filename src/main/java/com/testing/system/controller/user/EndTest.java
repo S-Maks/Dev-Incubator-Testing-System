@@ -1,24 +1,20 @@
 package com.testing.system.controller.user;
 
-import com.testing.system.model.Answer;
 import com.testing.system.model.Question;
-import com.testing.system.service.AnswerService;
-import com.testing.system.service.CookieService;
-import com.testing.system.service.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.testing.system.model.User;
+import com.testing.system.service.*;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 @Controller
 @RequestMapping("/user")
@@ -32,10 +28,17 @@ public class EndTest {
     final
     CookieService cookieService;
 
-    public EndTest(QuestionService questionService, AnswerService answerService, CookieService cookieService) {
+    final
+    StatisticService statisticService;
+
+    final UserService userService;
+
+    public EndTest(QuestionService questionService, AnswerService answerService, CookieService cookieService, StatisticService statisticService, UserService userService) {
         this.questionService = questionService;
         this.answerService = answerService;
         this.cookieService = cookieService;
+        this.statisticService = statisticService;
+        this.userService = userService;
     }
 
     @GetMapping(value = "/endTest")
@@ -50,6 +53,12 @@ public class EndTest {
         for (String s : split) {
             String[] strings = s.split("-");
             answerMap.put(questionService.findById(Integer.valueOf(strings[0])),answerService.findById(Integer.valueOf(strings[1])).isCorrect());
+        }
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.getUsername();
+        User byLogin = userService.findByLogin(username);
+        for (Map.Entry<Question, Boolean> entry : answerMap.entrySet()) {
+            statisticService.saveByParameters(new Date(),entry.getValue(),entry.getKey(),byLogin);
         }
         model.addAttribute("answersMap",answerMap);
         int i=0;

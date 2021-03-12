@@ -16,35 +16,17 @@
 <div>
     <table class="main-table-test">
         <tr>
-            <th>Вопрос</th>
-            <th>Правильно</th>
-            <th>Рекомендуемая литература</th>
-            <th>Ссылки на рекомендуемую литературу</th>
+            <th>ФИО</th>
+            <th>Название теста</th>
+            <th>Формулировка Вопроса</th>
+            <th>Пройдено всего раз</th>
+            <th>Процент правильных ответов</th>
         </tr>
-        <tr th:each="question:${answersMap}">
-            <td th:text="${question.key.description}"/>
-            <td th:if="${question.value == true}" th:text="ДА"/>
-            <td th:if="${question.value == false}" th:text="НЕТ"/>
-            <td>
-                <table class="inner-table-test">
-                    <tr th:each="literature:${question.key.literatureSet}" th:with="link=${literature.link}">
-                        <td th:text="${literature.description}"></td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                <table class="inner-table-test">
-                    <tr th:each="literature:${question.key.literatureSet}" th:with="link=${literature.link}">
-                        <td>
-                            <a th:href="@{${link.link}}" th:text="${link.link}"></a>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-
+        <tr th:each="row:${rows}">
+            <td th:each="field:${row}" th:text="${field}"/>
         </tr>
     </table>
-    <a th:href="@{/user/statistics}" class = "main-buttom-navigation ">Перейти к статистике</a>
+    <a th:href="@{/user/}" class = "main-buttom-navigation ">В начало</a>
     <br>
 
 </div>

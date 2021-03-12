@@ -9,6 +9,8 @@ public interface UserService {
 
     //void update(User t);
 
+    User findByLogin(String login);
+
     void delete(User t);
 
     List<User> findAll();

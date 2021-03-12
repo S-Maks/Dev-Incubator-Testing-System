@@ -1,25 +1,25 @@
 package com.testing.system.controller.user;
 
-import com.testing.system.model.Answer;
 import com.testing.system.model.Question;
 import com.testing.system.model.User;
-import com.testing.system.repository.JPA.UserRepository;
 import com.testing.system.service.CookieService;
 import com.testing.system.service.QuestionService;
+import com.testing.system.service.StatisticService;
 import com.testing.system.service.UserService;
+import org.hibernate.stat.Statistics;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
+import java.util.Date;
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -61,11 +61,18 @@ public class NextQuestion {
     }
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
+
+    @Autowired
+    StatisticService statisticService;
+
 
     @GetMapping("/saveStat")
-    public String saveStat() {
-        User user = userRepository.findByLogin("user");
+    public String saveStat(Statistics statistics) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.getUsername();
+        User byLogin = userService.findByLogin(username);
+        statisticService.saveByParameters(new Date(),true,questionService.findById(6),byLogin);
 
         return "user/question";
     }
