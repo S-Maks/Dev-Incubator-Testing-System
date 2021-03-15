@@ -196,3 +196,39 @@ a.home-list{
 .container{
     width: 1150px;
 }
+
+.form_radio_btn {
+    display: block;
+    margin-right: 10px;
+    font-weight: bold;
+    color: #2c40a6;
+}
+.form_radio_btn input[type=radio] {
+    display: none;
+}
+.form_radio_btn label {
+    display: block;
+    cursor: pointer;
+    padding: 0px 15px;
+    line-height: 34px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    user-select: none;
+}
+
+/* Checked */
+.form_radio_btn input[type=radio]:checked + label {
+    background: #2c40a6;
+    color: white;
+}
+
+/* Hover */
+.form_radio_btn label:hover {
+    color: #666;
+}
+
+/* Disabled */
+.form_radio_btn input[type=radio]:disabled + label {
+    background: #efefef;
+    color: #2c40a6;
+}

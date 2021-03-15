@@ -18,9 +18,9 @@
     <div>
         <form th:method="GET" th:action="@{{url} (url=${isLast==0} ? '/user/nextQuestion' : '/user/endTest')}">
             <div class="text-center color-text" th:text="${question.description}"></div>
-            <div class="radio" th:each="answer:${question.answerSet}">
-                <input type="radio" th:name="answer" th:id="${answer.answerId}" th:value="${answer.answerId}"
-                       th:text="${answer.description}">
+            <div class="form_radio_btn" th:each="answer:${question.answerSet}">
+                <input type="radio" th:name="answer" th:id="${answer.answerId}" th:value="${answer.answerId}">
+                <label th:for="${answer.answerId}" th:text="${answer.description}">Disabled</label>
             </div>
             <div>
                 <input type="submit" th:value="${isLast!=1} ? 'Следующий вопрос' : 'Закончить тест'"
