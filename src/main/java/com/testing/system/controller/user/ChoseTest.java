@@ -39,30 +39,5 @@ public class ChoseTest {
         return tests.stream().collect(Collectors.toList());
     }
 
-    class TestDTO implements Serializable{
-        private int id;
-        private String name;
-
-        public TestDTO(Test test) {
-            this.id = test.getTestId();
-            this.name = test.getName();
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 
 }

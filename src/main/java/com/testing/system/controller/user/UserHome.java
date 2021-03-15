@@ -35,8 +35,6 @@ public class UserHome {
 
     @GetMapping
     public String userHome(Model model){
-
-
         return "user/home";
     }
 
@@ -48,17 +46,6 @@ public class UserHome {
         model.addAttribute("topics",allTopics);
         model.addAttribute("tests",tests);
         return "user/choseTest";
-    }
-
-    @GetMapping(value = "/testLiterature")
-    public String testLiterature(){
-        Literature byId = literatureService.findById(6);
-
-        Test byId1 = testService.findById(5);
-        List<Literature> all = literatureService.findAll();
-        int i=0;
-
-        return "";
     }
 
 }
