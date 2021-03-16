@@ -51,7 +51,9 @@
     var setTest = function (data) {
         $('#tests').find('option').remove();
         $.each(data, function (index, value) {
-            $('#tests').append(new Option(value.name, value.testId));
+            $('#tests').append(`<option value="${value.testId}" title="${value.description}">
+                                       ${value.name}
+                                  </option>`);
         });
     }
 

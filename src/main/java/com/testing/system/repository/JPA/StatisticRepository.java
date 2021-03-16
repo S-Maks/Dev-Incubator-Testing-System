@@ -24,5 +24,7 @@ public interface StatisticRepository extends JpaRepository<Statistic,Integer> {
     @Query(value = "CALL getStat", nativeQuery = true)
     List<List<String>> getStat();
 
+    @Query(value = "CALL getStatByUserId(:userId);", nativeQuery = true)
+    List<List<String>> getStatByUserId(@Param("userId") Integer userId);
 
 }

@@ -60,7 +60,9 @@ public class EndTest {
         for (Map.Entry<Question, Boolean> entry : answerMap.entrySet()) {
             statisticService.saveByParameters(new Date(),entry.getValue(),entry.getKey(),byLogin);
         }
+        float countOfTrue = (float)answerMap.entrySet().stream().filter(o -> o.getValue() == true).count()/answerMap.size();
         model.addAttribute("answersMap",answerMap);
+        model.addAttribute("total",String.format("%.2f",countOfTrue*100)+"%");
         int i=0;
         return "user/testStat";
     }

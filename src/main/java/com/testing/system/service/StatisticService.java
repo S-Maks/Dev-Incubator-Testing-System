@@ -23,4 +23,6 @@ public interface StatisticService {
     public List<List<String>> getFullListToShowOnView();
 
     List<List<String>> getStat();
+
+    List<List<String>> getStatByUserId(int userId);
 }

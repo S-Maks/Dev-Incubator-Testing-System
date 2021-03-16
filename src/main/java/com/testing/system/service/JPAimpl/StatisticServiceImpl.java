@@ -100,4 +100,9 @@ public class StatisticServiceImpl implements StatisticService {
     public List<List<String>> getStat(){
         return statisticRepository.getStat();
     }
+
+    @Override
+    public List<List<String>> getStatByUserId(int userId) {
+        return statisticRepository.getStatByUserId(userId);
+    }
 }

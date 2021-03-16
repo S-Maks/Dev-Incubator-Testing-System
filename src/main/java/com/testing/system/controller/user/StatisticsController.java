@@ -1,21 +1,14 @@
 package com.testing.system.controller.user;
 
-import com.testing.system.model.Question;
-import com.testing.system.model.Statistic;
 import com.testing.system.model.User;
-import com.testing.system.repository.JPA.StatisticRepository;
 import com.testing.system.service.StatisticService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.testing.system.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -23,8 +16,10 @@ public class StatisticsController {
     final
     StatisticService statisticService;
 
-    public StatisticsController(StatisticService statisticService) {
+    final UserService userService;
+    public StatisticsController(StatisticService statisticService, UserService userService) {
         this.statisticService = statisticService;
+        this.userService = userService;
     }
 
     @GetMapping(value = "/getFullStat")
@@ -32,7 +27,10 @@ public class StatisticsController {
 
         /*Object[] stat = statisticService.getStat();*/
 
-        model.addAttribute("rows",statisticService.getStat());
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = principal.getUsername();
+        User byLogin = userService.findByLogin(username);
+        model.addAttribute("rows",statisticService.getStatByUserId(byLogin.getUserId()));
 
 
 
