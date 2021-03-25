@@ -8,4 +8,6 @@ import java.util.Map;
 public interface CookieService {
     Map<String, String> getCookieMap(HttpServletRequest request);
     void setResponseCookie(HttpServletResponse response, Map<String, String> cookieMap);
+
+    Map<String, String> doStringCookieMap(Integer testId, String answers, String questionList,Integer currentQuestion);
 }

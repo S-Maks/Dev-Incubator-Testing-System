@@ -26,4 +26,14 @@ public class CookieServiceImpl implements CookieService {
             response.addCookie(new Cookie(stringStringEntry.getKey(),stringStringEntry.getValue()));
         }
     }
+
+    @Override
+    public Map<String, String> doStringCookieMap(Integer testId, String answers, String questionList, Integer currentQuestion) {
+        Map<String, String> cookieMap = new LinkedHashMap<>();
+        cookieMap.put("testId", testId.toString());
+        cookieMap.put("answers", answers);
+        cookieMap.put("questionList", questionList);
+        cookieMap.put("currentQuestion", String.valueOf(currentQuestion));
+        return cookieMap;
+    }
 }
