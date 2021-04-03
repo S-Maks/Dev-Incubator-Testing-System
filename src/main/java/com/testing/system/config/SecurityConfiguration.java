@@ -44,6 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                     .antMatchers("/admin/**").access("hasRole('ADMIN')")
                     .antMatchers("/user/**").access("hasRole('USER')")
+                    .antMatchers("/tutor/**").access("hasRole('TUTOR')")
                     .anyRequest()
                     .authenticated()
                 .and()
@@ -52,7 +53,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout()
-                    .permitAll();
+                    .permitAll()
+                .and().formLogin().defaultSuccessUrl("/login", true);;
     }
 
     @Autowired
