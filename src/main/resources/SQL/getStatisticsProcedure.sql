@@ -33,11 +33,13 @@ CREATE PROCEDURE `getTestsStat` ()
     SQL SECURITY DEFINER
     COMMENT 'A tests statistic procedure'
 BEGIN
-    SELECT test.name, COUNT(statisticId) AS count, ROUND(avg(correct), 2) * 100 AS avg
+    SELECT test.name,
+           ROUND(COUNT(statisticid) / (SELECT COUNT(*) FROM question where test.testId = question.testId)) AS count,
+           ROUND(avg(correct), 2) * 100 AS avg
     FROM statistic
              JOIN question ON statistic.questionid = question.questionid
              JOIN test ON question.testid = test.testid
-    GROUP BY test.name;
+    GROUP BY test.name, test.testId;
 END;
 
 CREATE PROCEDURE `getQuestionsStat` ()
@@ -46,10 +48,12 @@ CREATE PROCEDURE `getQuestionsStat` ()
     SQL SECURITY DEFINER
     COMMENT 'A questions statistic procedure'
 BEGIN
-    SELECT description AS question, count(statisticId) AS count, ROUND(avg(correct), 2) * 100 AS avg
+    SELECT topic.name AS topic, test.name AS test, question.description AS question, count(statisticId) AS count, ROUND(AVG(correct), 1) * 100 as avg
     FROM statistic
              JOIN question ON statistic.questionid = question.questionid
-    GROUP BY question;
+             JOIN test ON question.testId = test.testId
+             JOIN topic ON topic.topicId = test.topicId
+    GROUP BY topic, test, question;
 END;
 
 CREATE PROCEDURE `getUsersStat` ()
@@ -58,10 +62,13 @@ CREATE PROCEDURE `getUsersStat` ()
     SQL SECURITY DEFINER
     COMMENT 'A users statistic procedure'
 BEGIN
-    SELECT firstname, lastname, test.name, COUNT(statisticid) AS count, ROUND(avg(correct), 2) * 100 AS avg
+    SELECT user.firstname, user.lastname, topic.name AS topicName, test.name AS testName,
+           ROUND(COUNT(statisticid) / (SELECT COUNT(*) FROM question where test.testId = question.testId)) AS count,
+           ROUND(avg(correct), 2) * 100 AS avg
     FROM statistic
              JOIN question on statistic.questionid = question.questionid
              JOIN test ON question.testid = test.testid
              JOIN user ON statistic.userid = user.userid
-    GROUP BY firstname, lastname, test.name;
+             JOIN topic ON topic.topicId = test.topicId
+    GROUP BY user.firstname, user.lastname, topicName, testName, test.testId;
 END;
