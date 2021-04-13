@@ -10,8 +10,6 @@ import java.util.List;
 public interface StatisticService {
     void save(Statistic t);
 
-    //void update(Statistic t);
-
     void delete(Statistic t);
 
     List<Statistic> findAll();
@@ -25,4 +23,10 @@ public interface StatisticService {
     List<List<String>> getStat();
 
     List<List<String>> getStatByUserId(int userId);
+
+    List<List<String>> getTestsStat();
+
+    List<List<String>> getQuestionsStat();
+
+    List<List<String>> getUsersStat();
 }

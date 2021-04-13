@@ -19,15 +19,6 @@ public class AnswerServiceImpl implements AnswerService {
         this.answerRepository = answerRepository;
     }
 
-
-
-    /*@Transactional
-    @Override
-    public void update(Answer answer) {
-        answerRepository.update(answer);
-
-    }*/
-
     @Transactional
     @Override
     public void delete(Answer answer) {

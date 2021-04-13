@@ -26,11 +26,6 @@ public class StatisticServiceImpl implements StatisticService {
         statisticRepository.save(t);
     }
 
-  /*  @Override
-    public void update(Statistic t) {
-        statisticRepository.update(t);
-    }*/
-
     @Override
     public void delete(Statistic t) {
         statisticRepository.delete(t);
@@ -104,5 +99,20 @@ public class StatisticServiceImpl implements StatisticService {
     @Override
     public List<List<String>> getStatByUserId(int userId) {
         return statisticRepository.getStatByUserId(userId);
+    }
+
+    @Override
+    public List<List<String>> getTestsStat() {
+        return statisticRepository.getTestsStat();
+    }
+
+    @Override
+    public List<List<String>> getQuestionsStat() {
+        return statisticRepository.getQuestionsStat();
+    }
+
+    @Override
+    public List<List<String>> getUsersStat() {
+        return statisticRepository.getUsersStat();
     }
 }

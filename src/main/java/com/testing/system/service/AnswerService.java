@@ -8,8 +8,6 @@ import java.util.List;
 public interface AnswerService {
     void save(Answer t);
 
-    //void update(Answer t);
-
     void delete(Answer t);
 
     List<Answer> findAll();

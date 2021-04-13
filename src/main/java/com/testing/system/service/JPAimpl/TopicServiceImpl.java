@@ -25,12 +25,6 @@ public class TopicServiceImpl implements TopicService {
         topicRepository.save(t);
     }
 
-    /*@Transactional
-    @Override
-    public void update(Topic t) {
-        topicRepository.update(t);
-    }*/
-
     @Transactional
     @Override
     public void delete(Topic t) {

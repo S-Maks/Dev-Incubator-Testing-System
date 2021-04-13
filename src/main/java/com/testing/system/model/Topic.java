@@ -13,7 +13,7 @@ public class Topic {
     private String description;
     private String name;
 
-    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Test> tests;
 
     public int getTopicId() {
@@ -48,7 +48,7 @@ public class Topic {
         this.tests = tests;
     }
 
-   /* @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -58,15 +58,6 @@ public class Topic {
 
     @Override
     public int hashCode() {
-        return Objects.hash(topicId, description, name);
+        return Objects.hash(name);
     }
-
-    @Override
-    public String toString() {
-        return "Topic{" +
-                "topicId=" + topicId +
-                ", description='" + description + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }*/
 }

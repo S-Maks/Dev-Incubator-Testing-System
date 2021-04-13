@@ -25,12 +25,6 @@ public class TestServiceImpl implements TestService {
         testRepository.save(t);
     }
 
-    /*@Transactional
-    @Override
-    public void update(Test t) {
-        testRepository.update(t);
-    }*/
-
     @Transactional
     @Override
     public void delete(Test t) {
@@ -46,6 +40,6 @@ public class TestServiceImpl implements TestService {
     @Transactional
     @Override
     public Test findById(int id) {
-        return (Test) testRepository.findById(id);
+        return testRepository.findById(id);
     }
 }

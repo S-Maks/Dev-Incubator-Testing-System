@@ -7,8 +7,6 @@ import java.util.List;
 public interface LinkService {
     void save(Link t);
 
-    //void update(Link t);
-
     void delete(Link t);
 
     List<Link> findAll();

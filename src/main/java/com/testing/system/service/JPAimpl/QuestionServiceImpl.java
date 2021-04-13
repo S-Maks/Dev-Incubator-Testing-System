@@ -4,6 +4,8 @@ import com.testing.system.model.Question;
 import com.testing.system.repository.JPA.QuestionRepository;
 import com.testing.system.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,12 +27,6 @@ public class QuestionServiceImpl implements QuestionService {
         questionRepository.save(t);
     }
 
-  /*  @Transactional
-    @Override
-    public void update(Question t) {
-        questionRepository.update(t);
-    }*/
-
     @Transactional
     @Override
     public void delete(Question t) {
@@ -46,6 +42,6 @@ public class QuestionServiceImpl implements QuestionService {
     @Transactional
     @Override
     public Question findById(int id) {
-        return (Question) questionRepository.findById(id);
+        return questionRepository.findById(id);
     }
 }

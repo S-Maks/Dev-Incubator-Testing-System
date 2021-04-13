@@ -6,7 +6,6 @@ import java.util.Date;
 @Entity
 @Table(name = "statistic")
 public class Statistic {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int statisticId;
@@ -15,8 +14,6 @@ public class Statistic {
     private Date date;
 
     private boolean correct;
-
-
 
     @ManyToOne
     @JoinColumn(name= "questionId")

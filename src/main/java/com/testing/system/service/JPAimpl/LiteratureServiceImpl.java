@@ -23,21 +23,12 @@ public class LiteratureServiceImpl implements LiteratureService {
     @Override
     public void save(Literature t) {
         literatureRepository.save(t);
-
     }
-
-   /* @Transactional
-    @Override
-    public void update(Literature t) {
-        literatureRepository.update(t);
-
-    }*/
 
     @Transactional
     @Override
     public void delete(Literature t) {
         literatureRepository.delete(t);
-
     }
 
     @Transactional

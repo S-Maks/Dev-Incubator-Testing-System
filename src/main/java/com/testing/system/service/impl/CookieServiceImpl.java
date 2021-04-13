@@ -1,4 +1,8 @@
-package com.testing.system.service.impl;
+package     /*@Transactional
+    @Override
+    public void update(User t) {
+        userRepository.update(t);
+    }*/com.testing.system.service.impl;
 
 import com.testing.system.service.CookieService;
 import org.springframework.stereotype.Service;

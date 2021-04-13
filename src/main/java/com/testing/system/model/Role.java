@@ -15,7 +15,6 @@ public class Role {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
     private List<User> userList;
 
-
     public int getRoleId() {
         return roleId;
     }

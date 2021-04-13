@@ -2,6 +2,7 @@ package com.testing.system.model;
 
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name="answer")
@@ -12,7 +13,6 @@ public class Answer {
     private int answerId;
     private String description;
     private boolean correct;
-
 
     @ManyToOne
     @JoinColumn(name = "questionId")
@@ -48,5 +48,18 @@ public class Answer {
 
     public void setQuestion(Question question) {
         this.question = question;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return correct == answer.correct && Objects.equals(description, answer.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, correct);
     }
 }

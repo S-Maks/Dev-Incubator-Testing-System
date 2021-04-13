@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface TopicRepository extends JpaRepository<Topic,Integer> {
     //void update (Topic user);
 
-    Topic save(Topic user);
+    Topic save(Topic topic);
 
     Topic findById (int id);
 }

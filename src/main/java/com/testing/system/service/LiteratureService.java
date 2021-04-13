@@ -8,8 +8,6 @@ import java.util.List;
 public interface LiteratureService {
     void save(Literature t);
 
-    //void update(Literature t);
-
     void delete(Literature t);
 
     List<Literature> findAll();

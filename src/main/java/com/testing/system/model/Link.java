@@ -1,6 +1,8 @@
 package com.testing.system.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -15,6 +17,7 @@ public class Link {
 
     @OneToOne
     @JoinColumn(name = "literatureId")
+    @JsonIgnore
     Literature literature;
 
     public int getLinkId() {
@@ -46,8 +49,7 @@ public class Link {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Link link1 = (Link) o;
-        return linkId == link1.linkId &&
-                link.equals(link1.link);
+        return linkId == link1.linkId && Objects.equals(link, link1.link);
     }
 
     @Override

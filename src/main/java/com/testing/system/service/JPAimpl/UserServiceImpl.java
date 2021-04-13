@@ -39,13 +39,6 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByLogin(login);
     }
 
-    /*@Transactional
-    @Override
-    public void update(User t) {
-        userRepository.update(t);
-    }*/
-
-
     @Transactional
     @Override
     public void delete(User t) {

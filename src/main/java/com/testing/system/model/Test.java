@@ -22,7 +22,7 @@ public class Test implements Serializable {
     private Topic topic;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "test", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private Set<Question> questions;
 
     public int getTestId() {
@@ -65,25 +65,16 @@ public class Test implements Serializable {
         this.questions = questions;
     }
 
-  /*  @Override
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Test test = (Test) o;
-        return testId == test.testId && name.equals(test.name) && description.equals(test.description);
+        return testId == test.testId && Objects.equals(name, test.name) && Objects.equals(description, test.description);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(testId, name, description);
     }
-
-    @Override
-    public String toString() {
-        return "Test{" +
-                "testId=" + testId +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
-    }*/
 }

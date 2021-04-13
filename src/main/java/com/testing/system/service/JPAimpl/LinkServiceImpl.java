@@ -19,18 +19,11 @@ public class LinkServiceImpl implements LinkService {
         this.linkRepository = linkRepository;
     }
 
-
     @Transactional
     @Override
     public void save(Link t) {
         linkRepository.save(t);
     }
-
-   /* @Transactional
-    @Override
-    public void update(Link t) {
-        linkRepository.update(t);
-    }*/
 
     @Override
     public void delete(Link t) {
@@ -46,6 +39,6 @@ public class LinkServiceImpl implements LinkService {
     @Transactional
     @Override
     public Link findById(int id) {
-        return (Link) linkRepository.findById(id).get();
+        return linkRepository.findById(id).get();
     }
 }

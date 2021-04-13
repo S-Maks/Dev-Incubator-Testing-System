@@ -1,13 +1,14 @@
 package com.testing.system.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name="literature")
 public class Literature {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int literatureId;
@@ -15,9 +16,11 @@ public class Literature {
     String description;
 
     @OneToOne(optional = false, cascade = CascadeType.ALL, mappedBy = "literature")
+    @JsonIgnore
     private Link link;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "questionId")
     private Question question;
 
@@ -58,13 +61,11 @@ public class Literature {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Literature that = (Literature) o;
-        return literatureId == that.literatureId &&
-                description.equals(that.description) &&
-                Objects.equals(link, that.link);
+        return literatureId == that.literatureId && Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(literatureId, description, link);
+        return Objects.hash(literatureId, description);
     }
 }

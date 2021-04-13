@@ -24,12 +24,6 @@ public class RoleServiceImpl implements RoleService {
         return roleRepository.findAll();
     }
 
-    /*@Transactional
-    @Override
-    public void update(Role t) {
-        roleRepository.update(t);
-    }*/
-
     @Transactional
     @Override
     public void delete(Role t) {
