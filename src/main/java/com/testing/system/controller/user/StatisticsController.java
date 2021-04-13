@@ -32,8 +32,6 @@ public class StatisticsController {
         User byLogin = userService.findByLogin(username);
         model.addAttribute("rows",statisticService.getStatByUserId(byLogin.getUserId()));
 
-
-
         return "user/statistics";
     }
 }

@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление ответов</title>
+    <script th:src="@{/scripts/jquery.min.js}"></script>
+    <script th:src="@{/scripts/sortTable.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/window.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/tutor" class="main-buttom-navigation ">Назад</a>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+
+<div class="home-admin">
+    <img th:src="@{/img/human.png}" class="img-human"/>
+    <div class="list-menu-admin-home">
+
+        <!--        TOPIC     -->
+
+        <div class="main-component">
+            <select class="select" id="topics" name="topic.topicId">
+                <option hidden selected value="0">Темы</option>
+                <option th:each="topic:${topics}" th:text="${topic.name} + ' : ' + ${topic.description}"
+                        th:value="${topic.topicId}">
+            </select>
+        </div>
+
+        <!--        TEST     -->
+
+        <div class="main-component">
+            <select class="select" id="tests" name="test.testId">
+                <option hidden selected value="0">Тесты</option>
+            </select>
+            <br>
+        </div>
+
+        <!--        QUESTION     -->
+
+        <div class="main-component">
+
+            <form id="createAnswerForm" th:action="@{/tutor/createAnswer}" method="post" class="center">
+
+                <select class="select" id="questions" required name="question.questionId">
+                    <option hidden selected value="0">Вопросы</option>
+                </select>
+                <a class="edit-answers" href="#editAnswer">&#9998;</a>
+        </div>
+
+        <!--            ANSWER      -->
+
+        <div class="main-component">
+
+            <ol id="answers"></ol>
+
+            <div class="main-component">
+                <button class="bottom-add-answer">Добавить ответ</button>
+            </div>
+
+            <script>
+                $('.bottom-add-answer').click(function () {
+                    $("#input-new-answer").fadeToggle(100);
+                });
+            </script>
+
+            <div id="input-new-answer" class="main-component">
+                <input required type="text" placeholder="answer"
+                       id="answerName" name="description" class="input-password color-text"/>
+                <br>
+                <input type="checkbox" name="correct" value="true">Ответ верный
+                <br>
+                <button id="bottom-add-answer" class="bottom-add-answer">Сохранить</button>
+            </div>
+        </div>
+
+        <!--            POST JQUERY -->
+
+        <script type="text/javascript">
+            var frm = $('#createAnswerForm');
+
+            frm.submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: frm.attr('method'),
+                    url: frm.attr('action'),
+                    data: frm.serialize()
+                })
+                    .done(function (data) {
+                        $("#answerName").val('');
+                        setAnswers(data)
+                    })
+                    .fail(function (xhr, status, error) {
+                        alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                    });
+            });
+        </script>
+
+        </form>
+
+    </div>
+
+</div>
+
+<div class="container">
+    <div id="editAnswer" class="modal">
+        <div class="answers-modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Редактирование ответов</h3>
+                    <a href="#editAnswerclose" title="Close" class="close">×</a>
+                </div>
+                <div class="modal-body">
+                    <table id="content-table" class="show-data-table" border="1">
+                        <tr>
+                            <th onclick="sortTable(0)">Тема</th>
+                            <th onclick="sortTable(1)">Тест</th>
+                            <th onclick="sortTable(2)">Вопрос</th>
+                            <th colspan="2">Редактирование/удаление ответов</th>
+                        </tr>
+
+                        <tbody id="answers-for-edit"
+                               th:each="answer : ${answers}"
+                               th:remove="tag">
+                        <tr>
+                            <td nowrap th:text="${answer.question.test.topic.name}"></td>
+                            <td nowrap th:text="${answer.question.test.name}"></td>
+                            <td class="td-width" nowrap th:text="${answer.question.description}"></td>
+                            <td nowrap>
+                                <form th:action="@{/tutor/updateAnswer}" th:object="${answer}" method="post">
+                                    <input type="hidden" name="answerId" id="answerId" th:value="${answer.answerId}">
+                                    <input class="input-text-answer" type="text" name="description"
+                                           th:value="${answer.description}" id="answerDescription">
+                                    <input class="input-text-answer" type="text" name="correct" id="correct"
+                                           th:value="${answer.correct}">
+                                    <input type="hidden" name="question.questionId" id="question.questionId"
+                                           th:value="${answer.question.questionId}">
+                                    <button type="submit">&#9745;</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/tutor/deleteAnswer}" th:object="${answer}" method="post">
+                                    <input type="hidden" name="answerId" th:value="${answer.answerId}">
+                                    <input type="hidden" name="description" th:value="${answer.description}">
+                                    <input type="hidden" name="correct" th:value="${answer.correct}">
+                                    <input type="hidden" name="question.questionId"
+                                           th:value="${answer.question.questionId}">
+                                    <button type="submit">&#9746;</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+        console.log(scrollbar);
+        document.querySelector('[href="#editAnswer"]').addEventListener('click', function () {
+            document.body.style.overflow = 'hidden';
+            document.querySelector('#openModal').style.marginLeft = scrollbar;
+        });
+        document.querySelector('[href="#editAnswerclose"]').addEventListener('click', function () {
+            document.body.style.overflow = 'visible';
+            document.querySelector('#openModal').style.marginLeft = '0px';
+        });
+    });
+</script>
+
+<script th:inline="javascript">
+    $().ready(function () {
+        $('#topics').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getTests"})],
+                type: "GET",
+                dataType: "json",
+                data: {topic: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setTest(data)
+                    setQuestions()
+                    setAnswers()
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+
+        $('#tests').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getQuestions"})],
+                type: "GET",
+                dataType: "json",
+                data: {test: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setQuestions(data)
+                    setAnswers()
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+
+        $('#questions').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getAnswers"})],
+                type: "GET",
+                dataType: "json",
+                data: {question: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setAnswers(data)
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+    });
+
+    var setTest = function (data) {
+        $('#tests').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#tests').append(`<option hidden selected value="0">Выберите тест</option>
+                            <option id="test" value="${value.testId}" title="${value.description}">
+                                        ${value.name} : ${value.description} </option>`);
+        });
+    }
+
+    var setQuestions = function (data) {
+        $('#questions').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#questions').append(`<option hidden selected value="0">Выберите вопрос</option>
+                <option value="${value.questionId}" title="${value.description}">
+                                       ${value.description}
+                                  </option>`);
+        });
+    }
+
+    var setAnswers = function (data) {
+        $('#answers').find('li').remove();
+        $.each(data, function (index, value) {
+            $('#answers').append(`
+                        <li>
+                            <input type="hidden" name="answerId" value="${value.answerId}">
+                            <input class="answer-description-form" type="text" value="${value.description}" name="description">
+                            <input class="answer-correct-form" type="text" value="${value.correct}" name="correct">
+                            <input type="hidden" name="question.questionId" value="${value.question.questionId}">
+<!--                            <button type="submit" id="submit">&#9745;</button>-->
+                        </li>`);
+        });
+    }
+</script>
+
+</body>
+</html>

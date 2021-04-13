@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>TUTOR HOME</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+<div class="home-admin">
+    <img th:src="@{/img/human.png}" class="img-human"/>
+    <div class="list-menu-admin-home">
+        <ul class="home-list">
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/tutor/topic}" class="home-list">Редактировать тему/тест</a>
+                </li>
+            </div>
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/tutor/answer}" class="home-list">Редактировать вопросы/ответы</a>
+                </li>
+            </div>
+            <div>
+                <li class="item-list">
+                    <a th:href="@{/tutor/statistic/home}" class="home-list">Статистика</a>
+                </li>
+            </div>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

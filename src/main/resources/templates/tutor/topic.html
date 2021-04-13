@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ВЫБОР ТЕСТА</title>
+    <script th:src="@{/scripts/jquery.min.js}"></script>
+    <script th:src="@{/scripts/sortTable.js}"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/window.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/tutor" class="main-buttom-navigation ">Назад</a>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+
+<div class="home-admin">
+    <img th:src="@{/img/human.png}" class="img-human"/>
+    <div class="list-menu-admin-home">
+
+        <form id="create-topic-form" th:action="@{/tutor/createTopic}" method="post"></form>
+        <form id="create-test-form" th:action="@{/tutor/createTest}" method="post"></form>
+        <form id="create-question-form" th:action="@{/tutor/createQuestion}" method="post"></form>
+        <form id="create-answer-form" th:action="@{/tutor/createAnswer}" method="post"></form>
+
+        <!--        TOPIC     -->
+
+        <div class="main-component" form="create-test-form">
+            <select form="create-test-form" class="select" id="topics" name="topic.topicId">
+                <option hidden selected value="0">Темы</option>
+                <option th:each="topic:${topics}" th:text="${topic.name} + ' : ' + ${topic.description}"
+                        th:value="${topic.topicId}">
+            </select>
+
+            <button class="btn-add-topic">&#10010;</button>
+            <a href="#editTopic">&#9998;</a>
+
+            <script>
+                $('.btn-add-topic').click(function () {
+                    $(".input-new-topic").fadeToggle(100);
+                });
+            </script>
+
+            <div id="input-new-topic" class="input-new-topic" form="create-topic-form">
+                <div>
+                    <input form="create-topic-form" required type="text" placeholder="Тема" id="topicName"
+                           name="name" class="input-password color-text"/>
+                    <input form="create-topic-form" required type="text" placeholder="Описание" id="topicDescription"
+                           name="description" class="input-password color-text"/>
+                    <input class="bottom-login" type="submit" name="submit" value="Сохранить"
+                           form="create-topic-form"/>
+                </div>
+                <br>
+            </div>
+        </div>
+
+        <script>
+            $(document).on("ready", function(){
+                $("#create-topic-form").on("submit", function(event) {
+                    event.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        url: [(@{"/tutor/createTopic"})],
+                        data: $('#create-topic-form').serialize()
+                    })
+                        .done(function (data) {
+                            $("#topicName").val('');
+                            $("#topicDescription").val('');
+                            setTopic(data)
+                        })
+                        .fail(function (xhr, status, error) {
+                            alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                        });
+                });
+            });
+
+            var setTopic = function (data) {
+                $('#topics').find('option').remove();
+                $.each(data, function (index, value) {
+                    $('#topics').append(`<option hidden selected value="0">Выберите топик</option>
+                            <option value="${value.topicId}" title="${value.description}">
+                                        ${value.name} : ${value.description} </option>`);
+                });
+            }
+        </script>
+
+        <!--        TEST     -->
+
+        <div class="main-component" form="create-question-form">
+            <select form="create-question-form" class="select" id="tests" name="test.testId">
+                <option hidden selected value="0">Тесты</option>
+            </select>
+            <button class="btn">&#10010;</button>
+            <a href="#editTest">&#9998;</a>
+
+            <script>
+                $('.btn').click(function () {
+                    $(".input-new-test").fadeToggle(100);
+                });
+            </script>
+
+            <div form="create-test-form" id="input-new-test" class="input-new-test">
+                <input form="create-test-form" required type="text" placeholder="Тест" id="name" name="name"
+                       class="input-password color-text"/>
+                <input form="create-test-form" required type="text" placeholder="Описание" id="description"
+                       class="input-password color-text" name="description"/>
+                <input form="create-test-form" class="bottom-login" type="submit" name="submit" value="Сохранить"/>
+                <br><br>
+            </div>
+
+            <br>
+
+        </div>
+
+        <script>
+            $(document).on("ready", function(){
+                $("#create-test-form").on("submit", function(event) {
+                    event.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        url: [(@{"/tutor/createTest"})],
+                        data: $('#create-test-form').serialize()
+                    })
+                        .done(function (data) {
+                            $("#name").val('');
+                            $("#description").val('');
+                            setTest(data)
+                        })
+                        .fail(function (xhr, status, error) {
+                            alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                        });
+                });
+            });
+        </script>
+
+        <!--        QUESTION     -->
+
+        <div>
+
+            <form th:action="@{/tutor/createLiterature}" id="create-literature-form" method="post" class="center">
+
+                <select class="select" id="questions" name="questionId">
+                    <option hidden selected value="0">Вопросы</option>
+                </select>
+                <button class="btn-question-add">&#10010;</button>
+                <a href="#editQuestion">&#9998;</a>
+
+                <script>
+                    $('.btn-question-add').click(function () {
+                        $(".input-new-question").fadeToggle(100);
+                    });
+                </script>
+
+                <div id="input-new-question" class="input-new-question">
+                    <input form="create-question-form" required type="text" placeholder="Вопрос" id="desc"
+                           name="description"
+                           class="input-password color-text"/>
+                    <input form="create-question-form" class="bottom-login" type="submit" name="submit"
+                           value="Сохранить"/>
+                    <br><br>
+                </div>
+
+                <br>
+
+                <script>
+                    $(document).on("ready", function(){
+                        $("#create-question-form").on("submit", function(event) {
+                            event.preventDefault();
+                            $.ajax({
+                                type: 'POST',
+                                url: [(@{"/tutor/createQuestion"})],
+                                data: $('#create-question-form').serialize()
+                            })
+                                .done(function (data) {
+                                    $("#desc").val('');
+                                    setQuestions(data)
+                                })
+                                .fail(function (xhr, status, error) {
+                                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                                });
+                        });
+                    });
+                </script>
+
+        </div>
+
+        <!--            LITERATURE      -->
+
+        <div class="main-component" form="create-literature-form">
+
+            <select class="select" id="literature" name="literature">
+                <option hidden selected value="0">Литература</option>
+            </select>
+            <button class="btn-literature-add">&#10010;</button>
+            <a href="#editLiterature">&#9998;</a>
+
+            <script>
+                $('.btn-literature-add').click(function () {
+                    $(".input-new-literature").fadeToggle(100);
+                });
+            </script>
+
+            <div id="input-new-literature" class="input-new-literature">
+                <input required type="text" class="input-password color-text"
+                       placeholder="Описание" id="literatureDescription" name="description"/>
+                <input required type="text" class="input-password color-text"
+                       placeholder="Ссылка" id="link" name="link"/>
+                <button class="bottom-login">Сохранить</button>
+                <br><br>
+            </div>
+        </div>
+
+        <script>
+            $(document).on("ready", function(){
+                $("#create-literature-form").on("submit", function(event) {
+                    event.preventDefault();
+                    $.ajax({
+                        type: 'POST',
+                        url: [(@{"/tutor/createLiterature"})],
+                        data: $('#create-literature-form').serialize()
+                    })
+                        .done(function (data) {
+                            $("#literatureDescription").val('');
+                            $("#link").val('');
+                            setLiterature(data)
+                        })
+                        .fail(function (xhr, status, error) {
+                            alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                        });
+                });
+            });
+        </script>
+
+        </form>
+
+    </div>
+</div>
+
+</div>
+
+<div class="container">
+    <div style="text-align: center;">
+    </div>
+    <div id="editTopic" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Редактирование/удаление тем</h3>
+                    <a href="#editTopicClose" title="Close" class="close">×</a>
+                </div>
+                <div class="modal-body">
+
+                    <table class="show-data-table" border="1">
+                        <tr>
+                            <th colspan="2">Редактирование/удаление тем</th>
+                        </tr>
+
+                        <tbody th:each="topic : ${topics}" th:remove="tag">
+                        <tr>
+                            <td>
+                                <form th:action="@{/tutor/editTopic}" th:object="${topic}" method="post">
+                                    <input type="hidden" name="topicId" th:value="${topic.topicId}">
+                                    <input class="input-text" type="text" name="name" th:value="${topic.name}">
+                                    <input class="input-text" type="text" name="description"
+                                           th:value="${topic.description}">
+                                    <button type="submit">&#9745;</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/tutor/deleteTopic}" th:object="${topic}" method="post">
+                                    <input type="hidden" name="topicId" th:value="${topic.topicId}">
+                                    <input type="hidden" name="name" th:value="${topic.name}">
+                                    <input type="hidden" name="description" th:value="${topic.description}">
+                                    <button type="submit">&#9746;</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+        console.log(scrollbar);
+        document.querySelector('[href="#editTopic"]').addEventListener('click', function () {
+            document.body.style.overflow = 'hidden';
+            document.querySelector('#openModal').style.marginLeft = scrollbar;
+        });
+        document.querySelector('[href="#editTopicClose"]').addEventListener('click', function () {
+            document.body.style.overflow = 'visible';
+            document.querySelector('#openModal').style.marginLeft = '0px';
+        });
+    });
+</script>
+
+<div class="container">
+    <div style="text-align: center;">
+    </div>
+    <div id="editTest" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Редактирование тестов</h3>
+                    <a href="#editTestclose" title="Close" class="close">×</a>
+                </div>
+                <div class="modal-body">
+                    <table class="show-data-table" border="1">
+                        <tr>
+                            <th onclick="sortTable(0)">Тема</th>
+                            <th colspan="2">Редактирование/удаление тестов</th>
+                        </tr>
+
+                        <tbody th:each="test : ${tests}" th:remove="tag">
+                        <tr>
+                            <td th:text="${test.topic.name}"></td>
+                            <td>
+                                <form th:action="@{/tutor/updateTest}" th:object="${test}" method="post">
+                                    <input type="hidden" name="testId" th:value="${test.testId}">
+                                    <input class="input-text" type="text" name="name" th:value="${test.name}">
+                                    <input class="input-text" type="text" name="description"
+                                           th:value="${test.description}">
+                                    <input type="hidden" name="topic.topicId" th:value="${test.topic.topicId}">
+                                    <button type="submit">&#9745;</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/tutor/deleteTest}" th:object="${test}" method="post">
+                                    <input type="hidden" name="testId" th:value="${test.testId}">
+                                    <input type="hidden" name="name" th:value="${test.name}">
+                                    <input type="hidden" name="description" th:value="${test.description}">
+                                    <input type="hidden" name="topic.topicId" th:value="${test.topic.topicId}">
+                                    <button type="submit">&#9746;</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+        console.log(scrollbar);
+        document.querySelector('[href="#editTest"]').addEventListener('click', function () {
+            document.body.style.overflow = 'hidden';
+            document.querySelector('#openModal').style.marginLeft = scrollbar;
+        });
+        document.querySelector('[href="#editTestclose"]').addEventListener('click', function () {
+            document.body.style.overflow = 'visible';
+            document.querySelector('#openModal').style.marginLeft = '0px';
+        });
+    });
+</script>
+
+<div class="container">
+    <div style="text-align: center;">
+    </div>
+    <div id="editQuestion" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Редактирование вопросов</h3>
+                    <a href="#editQuestionClose" title="Close" class="close">×</a>
+                </div>
+                <div class="modal-body">
+                    <table class="show-data-table" border="1">
+                        <tr>
+                            <th onclick="sortTable(0)">Тема</th>
+                            <th onclick="sortTable(1)">Тест</th>
+                            <th onclick="sortTable(2)" colspan="2">Вопрос</th>
+                        </tr>
+
+                        <tbody th:each="question : ${questions}" th:remove="tag">
+                        <tr>
+                            <td th:text="${question.test.topic.name}"></td>
+                            <td th:text="${question.test.name}"></td>
+                            <td>
+                                <form th:action="@{/tutor/updateQuestion}" th:object="${question}" method="post">
+                                    <input type="hidden" name="questionId" th:value="${question.questionId}">
+                                    <input class="input-text" type="text" name="description" th:value="${question.description}">
+                                    <input class="input-text" type="hidden" name="test.testId" th:value="${question.test.testId}">
+                                    <button type="submit">&#9745;</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/tutor/deleteQuestion}" th:object="${question}" method="post">
+                                    <input type="hidden" name="questionId" th:value="${question.questionId}">
+                                    <!--                        <input type="hidden" name="description" th:value="${question.description}">-->
+                                    <!--                        <input type="hidden" name="testId" th:value="${question.test.testId}">-->
+                                    <button type="submit">&#9746;</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+        console.log(scrollbar);
+        document.querySelector('[href="#editQuestion"]').addEventListener('click', function () {
+            document.body.style.overflow = 'hidden';
+            document.querySelector('#openModal').style.marginLeft = scrollbar;
+        });
+        document.querySelector('[href="#editQuestionClose"]').addEventListener('click', function () {
+            document.body.style.overflow = 'visible';
+            document.querySelector('#openModal').style.marginLeft = '0px';
+        });
+    });
+</script>
+
+<div class="container">
+    <div style="text-align: center;">
+    </div>
+    <div id="editLiterature" class="modal">
+        <div class="literature-modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Редактирование литературы</h3>
+                    <a href="#editLiteratureclose" title="Close" class="close">×</a>
+                </div>
+                <div class="modal-body">
+                    <table id="content-table" class="show-data-table" border="1">
+                        <tr>
+                            <th onclick="sortTable(0)">Тема</th>
+                            <th onclick="sortTable(1)">Тест</th>
+                            <th onclick="sortTable(2)">Вопрос</th>
+                            <th colspan="2">Редактирование/удаление</th>
+                        </tr>
+
+                        <tbody th:each="literature : ${literature}" th:remove="tag">
+                        <tr>
+                            <td th:text="${literature.question.test.topic.name}"></td>
+                            <td th:text="${literature.question.test.name}"></td>
+                            <td th:text="${literature.question.description}"></td>
+                            <td>
+                                <form th:action="@{/tutor/updateLiterature}" th:object="${literature}" method="post">
+                                    <input type="hidden" name="questionId" th:value="${literature.question.questionId}">
+                                    <input type="hidden" name="literatureId" th:value="${literature.literatureId}">
+                                    <input class="input-text" type="text" name="description" th:value="${literature.description}">
+                                    <input class="input-text" type="text" name="link" th:value="${literature.link.link}">
+                                    <input type="hidden" name="question.questionId" th:value="${literature.question.questionId}">
+                                    <button type="submit">&#9745;</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/tutor/deleteLiterature}" th:object="${literature}" method="post">
+                                    <input type="hidden" name="question.questionId" th:value="${literature.question.questionId}">
+                                    <input type="hidden" name="literatureId" th:value="${literature.literatureId}">
+                                    <input type="hidden" name="description" th:value="${literature.description}">
+                                    <input type="hidden" name="literature.link" th:value="${literature.link.link}">
+                                    <input type="hidden" name="question.questionId" th:value="${literature.question.questionId}">
+                                    <button type="submit">&#9746;</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var scrollbar = document.body.clientWidth - window.innerWidth + 'px';
+        console.log(scrollbar);
+        document.querySelector('[href="#editLiterature"]').addEventListener('click', function () {
+            document.body.style.overflow = 'hidden';
+            document.querySelector('#openModal').style.marginLeft = scrollbar;
+        });
+        document.querySelector('[href="#editLiteratureclose"]').addEventListener('click', function () {
+            document.body.style.overflow = 'visible';
+            document.querySelector('#openModal').style.marginLeft = '0px';
+        });
+    });
+</script>
+
+<script th:inline="javascript">
+    $().ready(function () {
+        $('#topics').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getTests"})],
+                type: "GET",
+                dataType: "json",
+                data: {topic: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setTest(data)
+                    setQuestions()
+                    setAnswers()
+                    setLiterature()
+                    setLink()
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+
+        $('#tests').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getQuestions"})],
+                type: "GET",
+                dataType: "json",
+                data: {test: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setQuestions(data)
+                    setAnswers()
+                    setLiterature()
+                    setLink()
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+
+        $('#questions').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getAnswers"})],
+                type: "GET",
+                dataType: "json",
+                data: {question: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setAnswers(data)
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+
+        $('#questions').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getLiterature"})],
+                type: "GET",
+                dataType: "json",
+                data: {question: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setLiterature(data)
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+
+        $('#literature').change(function (event) {
+            $.ajax({
+                url: [(@{"/tutor/getLink"})],
+                type: "GET",
+                dataType: "json",
+                data: {literature: $(event.target).val()}
+            })
+                .done(function (data) {
+                    setLink(data)
+                })
+                .fail(function (xhr, status, error) {
+                    alert(xhr.responseText + '|/n' + status + '|/n' + error);
+                });
+        });
+    });
+
+    var setTest = function (data) {
+        $('#tests').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#tests').append(`<option hidden selected value="0">Выберите тест</option>
+                            <option id="test" value="${value.testId}" title="${value.description}">
+                                        ${value.name} : ${value.description} </option>`);
+        });
+    }
+
+    var setQuestions = function (data) {
+        $('#questions').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#questions').append(`<option hidden selected value="0">Выберите вопрос</option>
+                <option value="${value.questionId}" title="${value.description}">
+                                       ${value.description}
+                                  </option>`);
+        });
+    }
+
+    var setAnswers = function (data) {
+        $('#answers').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#answers').append(`<option hidden selected value="0">Выберите ответ</option>
+                        <option value="${value.answerId}" title="${value.description}">
+                                       ${value.description} : ${value.correct}
+                                  </option>`);
+        });
+    }
+
+    var setLiterature = function (data) {
+        $('#literature').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#literature').append(`<option hidden selected value="0">Выберите литературу</option>
+                        <option value="${value.literatureId}" title="${value.description}">
+                                       ${value.description}
+                                  </option>`);
+        });
+    }
+
+    var setLink = function (data) {
+        $('#linkId').find('option').remove();
+        $.each(data, function (index, value) {
+            $('#linkId').append(`<option hidden selected value="0">Выберите ссылку</option>
+                        <option value="${value.linkId}" title="${value.link}">
+                                       ${value.link}
+                                  </option>`);
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tests statistic</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="exit-button">
+    <h1>
+        <a href="/tutor/statistic/home" class="main-buttom-navigation ">Назад</a>
+        <a href="/logout" class="main-buttom-navigation ">Выйти</a>
+    </h1>
+</div>
+<div>
+    <table class="main-table-test">
+        <tr>
+            <th>Название теста</th>
+            <th>Пройдено всего раз</th>
+            <th>Процент правильных ответов</th>
+        </tr>
+        <tr th:each="stat:${statistic}">
+            <td th:each="field:${stat}" th:text="${field}"/>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>
