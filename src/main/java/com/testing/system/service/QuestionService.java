@@ -12,4 +12,6 @@ public interface QuestionService {
     List<Question> findAll();
 
     Question findById(int id);
+
+    String doQuestionIdString(Iterable<Question> questions, String appender);
 }
