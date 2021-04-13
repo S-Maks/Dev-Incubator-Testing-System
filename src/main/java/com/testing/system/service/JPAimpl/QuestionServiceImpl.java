@@ -44,4 +44,13 @@ public class QuestionServiceImpl implements QuestionService {
     public Question findById(int id) {
         return questionRepository.findById(id);
     }
+
+    @Override
+    public String doQuestionIdString(Iterable<Question> questions, String appender) {
+        StringBuilder questionIdListString=new StringBuilder();
+        for (Question question : questions) {
+            questionIdListString.append(question.getQuestionId()).append(appender);
+        }
+        return questionIdListString.toString();
+    }
 }
